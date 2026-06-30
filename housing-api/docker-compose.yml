@@ -1,0 +1,8 @@
+services:
+  housing-api:
+    build: .
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./model.joblib:/app/model.joblib:ro
+    restart: unless-stopped
