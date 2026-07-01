@@ -17,7 +17,7 @@ FEATURE_DEFAULTS = {
 
 
 def get_backend_url() -> str:
-    backend_url = st.secrets.get("BACKEND_URL", os.getenv("BACKEND_URL", "http://localhost:8000"))
+    backend_url = os.getenv("BACKEND_URL", "http://localhost:8000")
     return backend_url.rstrip("/")
 
 
