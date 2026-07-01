@@ -2,30 +2,47 @@
 
 API REST FastAPI qui prédit la valeur médiane d'un logement en Californie via un modèle Random Forest.
 
-## Prérequis
+## Codespaces
 
-- [Docker](https://docs.docker.com/get-docker/) et Docker Compose installés
-- Port `8000` disponible sur la machine hôte
-
----
-
-## Exécution avec Docker Compose
-
-### Étape 1 — Cloner le dépôt
-
-```bash
-git clone git@github.com:Thomasgsn/cloud
-cd cloud/housing-api
-```
-
-### Étape 2 — Entraîner le modèle
+Si il n'y a pas de model:
 
 ```bash
 pip install scikit-learn joblib pandas
 python train.py
 ```
 
-### Étape 3 — Construire et lancer le service
+Lancer le serveur Backend:
+
+```bash
+python -m uvicorn app:app --reload --host 0.0.0.0 --port 8000
+```
+
+## Local
+
+### Prérequis
+
+- [Docker](https://docs.docker.com/get-docker/) et Docker Compose installés
+- Port `8000` disponible sur la machine hôte
+
+---
+
+### Exécution avec Docker Compose
+
+#### Étape 1 — Cloner le dépôt
+
+```bash
+git clone git@github.com:Thomasgsn/cloud
+cd cloud/housing-api
+```
+
+#### Étape 2 — Entraîner le modèle
+
+```bash
+pip install scikit-learn joblib pandas
+python train.py
+```
+
+#### Étape 3 — Construire et lancer le service
 
 ```bash
 docker compose up --build
@@ -39,7 +56,7 @@ Pour lancer en arrière-plan :
 docker compose up --build -d
 ```
 
-### Étape 4 — Vérifier que l'API fonctionne
+#### Étape 4 — Vérifier que l'API fonctionne
 
 ```bash
 curl http://localhost:8000/health
@@ -51,7 +68,7 @@ Réponse attendue :
 {"status": "L'API fonctionne"}
 ```
 
-### Étape 5 — Faire une prédiction
+#### Étape 5 — Faire une prédiction
 
 ```bash
 curl -X POST http://localhost:8000/predict \
@@ -74,7 +91,7 @@ Réponse attendue :
 {"predicted_house_value": 4.18}
 ```
 
-### Étape 6 — Prédiction en lot (`/predict_batch`)
+#### Étape 6 — Prédiction en lot (`/predict_batch`)
 
 ```bash
 curl -X POST http://localhost:8000/predict_batch \
@@ -85,7 +102,7 @@ curl -X POST http://localhost:8000/predict_batch \
   ]'
 ```
 
-### Étape 7 — Arrêter le service
+#### Étape 7 — Arrêter le service
 
 ```bash
 docker compose down
@@ -93,7 +110,7 @@ docker compose down
 
 ---
 
-## Documentation interactive
+### Documentation interactive
 
 FastAPI génère automatiquement une interface Swagger UI :
 
@@ -102,9 +119,9 @@ FastAPI génère automatiquement une interface Swagger UI :
 
 ---
 
-## Structure du projet
+### Structure du projet
 
-```
+```plaintext
 housing-api/
 ├── app.py              # API FastAPI
 ├── train.py            # Script d'entraînement du modèle
@@ -115,7 +132,7 @@ housing-api/
 └── questions.md        # Réponses aux questions théoriques
 ```
 
-## Endpoints
+### Endpoints
 
 | Méthode | Route           | Description                       |
 |---------|-----------------|-----------------------------------|
