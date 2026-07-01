@@ -30,9 +30,6 @@ pip install -r requirements.txt
 
 Exemple pour lancer en local :
 
-[Décommentez le lien au backend local](./app.py#l20)
-[Commentez le lien au backend du codespaces](./app.py#l21)\
-
 ```bash
 streamlit run app.py
 ```

@@ -17,8 +17,7 @@ FEATURE_DEFAULTS = {
 
 
 def get_backend_url() -> str:
-    # backend_url = "http://localhost:8000"
-    backend_url = "https://verbose-tribble-x764p9jr76p2v4r9-8000.app.github.dev/"
+    backend_url = st.secrets.get("BACKEND_URL", os.getenv("BACKEND_URL", "http://localhost:8000"))
     return backend_url.rstrip("/")
 
 
@@ -43,7 +42,6 @@ def predict(backend_url: str, payload: dict[str, float]) -> float:
 
 
 st.set_page_config(page_title="Housing Predictor", page_icon="🏠", layout="centered")
-
 st.title("Housing Price Predictor")
 
 backend_url = get_backend_url()
