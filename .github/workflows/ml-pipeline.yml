@@ -1,0 +1,53 @@
+name: ML Pipeline
+
+on:
+  push:
+    paths:
+      - "ml-pipeline/**"
+      - "Makefile"
+      - ".github/workflows/ml-pipeline.yml"
+  pull_request:
+    paths:
+      - "ml-pipeline/**"
+      - "Makefile"
+      - ".github/workflows/ml-pipeline.yml"
+  workflow_dispatch:
+
+jobs:
+  pipeline:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        shell: bash
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install ML pipeline dependencies
+        working-directory: ml-pipeline
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Run pipeline
+        run: make pipeline
+
+      - name: Upload evaluation report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: ml-pipeline-reports
+          path: ml-pipeline/reports/
+
+      - name: Upload production model
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: ml-pipeline-production
+          path: ml-pipeline/production/
