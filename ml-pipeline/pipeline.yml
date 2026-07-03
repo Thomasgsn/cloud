@@ -1,0 +1,12 @@
+threshold: 0.90
+steps:
+  - name: install
+    type: install
+  - name: train
+    type: train
+  - name: evaluate
+    type: evaluate
+  - name: validate
+    type: validate
+  - name: deploy
+    type: deploy
